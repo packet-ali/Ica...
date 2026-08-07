@@ -1,29 +1,139 @@
-.intro-page {
-      width: 100%;
-        height: 100vh;
+body{
 
-          background: #000;
+font-family:"Poppins",sans-serif;
 
-            display: flex;
-              justify-content: center;
-                align-items: center;
+background:var(--background);
 
-                  padding: 40px;
-                  }
+color:var(--text);
 
-                  .intro-page h1 {
-                    color: white;
+}
 
-                      font-family: "Playfair Display", serif;
+button{
 
-                        font-size: 2rem;
+font:inherit;
 
-                          font-weight: 400;
+cursor:pointer;
 
-                            text-align: center;
+border:none;
 
-                              max-width: 700px;
+background:none;
 
-                                line-height: 1.6;
-                                }
+}
+
+img{
+
+display:block;
+
+max-width:100%;
+
+}
+
+a{
+
+text-decoration:none;
+
+color:inherit;
+
+}
+
+.page{
+
+width:100%;
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* ========================= */
+/* OPENING PAGE */
+/* ========================= */
+
+.opening-page{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:28px;
+
+    background:
+    radial-gradient(circle at top,#fffdfd,#fff8f4);
+
+    overflow:hidden;
+}
+
+.opening-title{
+
+    font-family:"Playfair Display",serif;
+
+    font-size:30px;
+
+    font-weight:500;
+
+    color:#8d5b63;
+
+    text-align:center;
+
+    margin:0;
+
+    padding:0 24px;
+}
+
+.gift-wrapper{
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.gift-wrapper:hover{
+
+    transform:scale(1.03);
+
+}
+
+/* =======================
+   Gift Interaction
+======================= */
+
+.gift-wrapper{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    user-select:none;
+
+    transition:.3s;
+
+}
+
+.gift-wrapper.clickable{
+
+    cursor:pointer;
+
+}
+
+.gift-wrapper.clickable:hover{
+
+    transform:scale(1.02);
+
 }
