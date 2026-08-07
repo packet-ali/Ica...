@@ -7,7 +7,7 @@ import GiftBow from "./parts/GiftBow";
 import GiftSparkles from "./parts/GiftSparkles";
 
 export default function Gift({
-  isOpening = false,
+  phase = "idle",
 }) {
   return (
     <svg
@@ -40,8 +40,16 @@ export default function Gift({
         </linearGradient>
 
         <radialGradient id="giftGlow">
-          <stop offset="0%" stopColor="#FFD8E6" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#FFD8E6" stopOpacity="0" />
+          <stop
+            offset="0%"
+            stopColor="#FFD8E6"
+            stopOpacity="0.9"
+          />
+          <stop
+            offset="100%"
+            stopColor="#FFD8E6"
+            stopOpacity="0"
+          />
         </radialGradient>
 
         <filter
@@ -55,19 +63,19 @@ export default function Gift({
         </filter>
       </defs>
 
-      <GiftGlow />
+      <GiftGlow phase={phase} />
 
-      <GiftShadow />
+      <GiftShadow phase={phase} />
 
       <GiftBox />
 
       <GiftRibbon />
 
-<GiftLid isOpening={isOpening} />
+      <GiftLid phase={phase} />
 
-<GiftBow isOpening={isOpening} />
+      <GiftBow phase={phase} />
 
-<GiftSparkles isOpening={isOpening} />
+      <GiftSparkles phase={phase} />
     </svg>
   );
 }

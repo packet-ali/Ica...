@@ -1,16 +1,38 @@
 import { motion } from "framer-motion";
 import { giftConfig } from "../GiftConfig";
 
-export default function GiftLid({ isOpening }) {
+export default function GiftLid({
+  phase = "idle",
+}) {
   const { lid } = giftConfig;
+
+  const isOpen =
+    phase === "open" ||
+    phase === "explode" ||
+    phase === "flash";
 
   return (
     <motion.g
       animate={{
-        y: isOpening ? -25 : 0,
+        x:
+          phase === "shake"
+            ? [-3, 3, -3, 3, 0]
+            : 0,
+
+        y: isOpen
+          ? -60
+          : phase === "jump"
+          ? -10
+          : 0,
+
+        rotate: isOpen ? -18 : 0,
       }}
       transition={{
-        duration: 0.5,
+        duration: 0.45,
+        ease: "easeInOut",
+      }}
+      style={{
+        transformOrigin: "160px 102px",
       }}
     >
       <rect
