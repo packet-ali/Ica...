@@ -1,21 +1,17 @@
 import { giftConfig } from "../GiftConfig";
 
 export default function GiftRibbon() {
-  const { box, lid, ribbon } = giftConfig;
+  const { box, ribbon } = giftConfig;
 
   const centerX =
     box.x + box.width / 2 - ribbon.width / 2;
 
   return (
     <g>
-      <rect
-        x={centerX}
-        y={lid.y}
-        width={ribbon.width}
-        height={lid.height}
-        rx="9"
-        fill="url(#giftRibbonGradient)"
-      />
+      {/* =========================
+          VERTICAL RIBBON
+          Hanya pada badan box
+      ========================== */}
 
       <rect
         x={centerX}
@@ -26,6 +22,10 @@ export default function GiftRibbon() {
         fill="url(#giftRibbonGradient)"
       />
 
+      {/* =========================
+          HORIZONTAL RIBBON
+      ========================== */}
+
       <rect
         x={box.x}
         y={box.y + 26}
@@ -33,6 +33,19 @@ export default function GiftRibbon() {
         height={ribbon.horizontalHeight}
         rx="9"
         fill="url(#giftRibbonGradient)"
+      />
+
+      {/* =========================
+          HIGHLIGHT VERTICAL
+      ========================== */}
+
+      <rect
+        x={centerX + 3}
+        y={box.y + 3}
+        width="4"
+        height={box.height - 6}
+        rx="2"
+        fill="rgba(255,255,255,.20)"
       />
     </g>
   );
