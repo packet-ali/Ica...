@@ -270,7 +270,7 @@ export default function Birthday() {
             <div className="birthday-photo">
 
               <img
-                src="/images/birthday/baby-photo.jpg"
+                src="/images/birthday/baby-photo.png"
                 alt="Foto masa kecil"
                 className="birthday-photo-image"
               />
