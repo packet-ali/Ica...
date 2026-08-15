@@ -1,22 +1,14 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 import TypingText from "../components/ui/TypingText";
+
 import "../styles/birthday.css";
+
 
 /* =========================================================
    BIRTHDAY LETTER
-   =========================================================
-   
-   Kamu bebas mengubah isi bagian ini.
-
-   Bisa:
-   - menambah paragraf
-   - mengurangi paragraf
-   - membuat paragraf panjang
-   - membuat paragraf pendek
-
-   Sistem animasi tidak perlu disentuh.
 ========================================================= */
 
 const birthdayParagraphs = [
@@ -29,17 +21,13 @@ const birthdayParagraphs = [
   "Aku mungkin tidak selalu tahu cara terbaik untuk mengungkapkannya, tapi aku benar-benar senang bisa menjadi bagian kecil dari perjalananmu."
 ];
 
-/*
-   TEKS TERAKHIR YANG MUNCUL
-   DENGAN FADE-IN LEMBUT.
-*/
 
 const birthdayEmphasis =
   "Terima kasih sudah hadir dan membuat dunia terasa sedikit lebih indah.";
 
 
 /* =========================================================
-   ANIMATION SETTINGS
+   TYPING SETTINGS
 ========================================================= */
 
 const typingSpeed = 35;
@@ -50,10 +38,12 @@ const emphasisDelay = 1000;
 
 
 /* =========================================================
-   BIRTHDAY PAGE
+   MAIN COMPONENT
 ========================================================= */
 
 export default function Birthday() {
+
+  const navigate = useNavigate();
 
   const [activeParagraph, setActiveParagraph] =
     useState(0);
@@ -64,21 +54,62 @@ export default function Birthday() {
   const [showEmphasis, setShowEmphasis] =
     useState(false);
 
+  const [showMoreMessage, setShowMoreMessage] =
+    useState(false);
+
+  const [showContinueButton, setShowContinueButton] =
+    useState(false);
+
 
   /* =======================================================
-     PARAGRAPH SEQUENCER
+     PARAGRAPH SEQUENCE
   ======================================================= */
 
   useEffect(() => {
+
     setTypingStarted(true);
+
   }, [activeParagraph]);
 
 
-  function handleParagraphComplete() {
+  /* =======================================================
+     AFTER FINAL EMPHASIS
+  ======================================================= */
 
-    /*
-      Masih ada paragraf berikutnya.
-    */
+  useEffect(() => {
+
+    if (!showEmphasis) return;
+
+
+    const moreMessageTimer = setTimeout(() => {
+
+      setShowMoreMessage(true);
+
+    }, 1700);
+
+
+    const buttonTimer = setTimeout(() => {
+
+      setShowContinueButton(true);
+
+    }, 2700);
+
+
+    return () => {
+
+      clearTimeout(moreMessageTimer);
+      clearTimeout(buttonTimer);
+
+    };
+
+  }, [showEmphasis]);
+
+
+  /* =======================================================
+     PARAGRAPH COMPLETE
+  ======================================================= */
+
+  function handleParagraphComplete() {
 
     if (
       activeParagraph <
@@ -99,11 +130,6 @@ export default function Birthday() {
     }
 
 
-    /*
-      Semua paragraf selesai.
-      Setelah jeda, munculkan emphasis.
-    */
-
     setTimeout(() => {
 
       setShowEmphasis(true);
@@ -112,11 +138,23 @@ export default function Birthday() {
   }
 
 
+  /* =======================================================
+     CONTINUE
+  ======================================================= */
+
+  function handleContinue() {
+
+    navigate("/main-menu");
+
+  }
+
+
   return (
     <main className="birthday-page">
 
+
       {/* =================================================
-          BACKGROUND ATMOSPHERE
+          BACKGROUND
       ================================================= */}
 
       <div
@@ -129,10 +167,6 @@ export default function Birthday() {
         aria-hidden="true"
       />
 
-
-      {/* =================================================
-          BACKGROUND STARS
-      ================================================= */}
 
       <svg
         className="birthday-stars"
@@ -154,7 +188,7 @@ export default function Birthday() {
 
 
       {/* =================================================
-          MAIN CONTENT
+          CONTENT
       ================================================= */}
 
       <motion.section
@@ -178,7 +212,7 @@ export default function Birthday() {
 
 
         {/* =================================================
-            PHOTO AREA
+            PHOTO
         ================================================= */}
 
         <motion.div
@@ -206,8 +240,6 @@ export default function Birthday() {
             aria-hidden="true"
           />
 
-
-          {/* ORBIT */}
 
           <svg
             className="birthday-orbit"
@@ -238,8 +270,6 @@ export default function Birthday() {
           </svg>
 
 
-          {/* SPARKLES */}
-
           <svg
             className="birthday-sparkles"
             viewBox="0 0 360 300"
@@ -261,10 +291,6 @@ export default function Birthday() {
           </svg>
 
 
-          {/* =================================================
-              REAL PHOTO
-          ================================================= */}
-
           <div className="birthday-photo-frame">
 
             <div className="birthday-photo">
@@ -279,8 +305,6 @@ export default function Birthday() {
 
           </div>
 
-
-          {/* FLOWER */}
 
           <svg
             className="birthday-flower"
@@ -467,6 +491,7 @@ export default function Birthday() {
 
                 </motion.p>
               );
+
             })}
 
 
@@ -498,6 +523,89 @@ export default function Birthday() {
             >
               {birthdayEmphasis}
             </motion.p>
+
+          )}
+
+
+          {/* =================================================
+              THERE'S STILL MORE
+          ================================================= */}
+
+          {showMoreMessage && (
+
+            <motion.p
+              className="birthday-more-message"
+
+              initial={{
+                opacity: 0,
+                y: 12
+              }}
+
+              animate={{
+                opacity: 1,
+                y: 0
+              }}
+
+              transition={{
+                duration: 1.1,
+                ease: "easeOut"
+              }}
+            >
+              There's still more...
+            </motion.p>
+
+          )}
+
+
+          {/* =================================================
+              CONTINUE BUTTON
+          ================================================= */}
+
+          {showContinueButton && (
+
+            <motion.button
+              className="birthday-continue-button"
+
+              onClick={handleContinue}
+
+              initial={{
+                opacity: 0,
+                y: 12,
+                scale: 0.96
+              }}
+
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1
+              }}
+
+              transition={{
+                duration: 0.9,
+                ease: "easeOut"
+              }}
+
+              whileHover={{
+                scale: 1.035
+              }}
+
+              whileTap={{
+                scale: 0.97
+              }}
+            >
+
+              <span>
+                Continue the journey
+              </span>
+
+              <span
+                className="birthday-continue-arrow"
+                aria-hidden="true"
+              >
+                →
+              </span>
+
+            </motion.button>
 
           )}
 
