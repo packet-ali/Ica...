@@ -1,55 +1,228 @@
+/* =========================================================
+   INTRO PAGE
+   OUR LITTLE UNIVERSE
+========================================================= */
+
 .intro-page {
-  width: 100%;
-  height: 100vh;
+    position: relative;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    min-height: 100vh;
 
-  background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  padding: 40px;
+    box-sizing: border-box;
+
+    padding: 40px 24px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #242424 0%,
+            #111111 45%,
+            #050505 100%
+        );
 }
+
+
+/* =========================================================
+   SOFT BACKGROUND GLOW
+========================================================= */
+
+.intro-page::before {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(197, 109, 120, 0.10),
+            rgba(197, 109, 120, 0.035) 45%,
+            transparent 72%
+        );
+
+    filter: blur(30px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
 
 .intro-text {
-  color: #ffffff;
+    position: relative;
 
-  font-family: "Playfair Display", serif;
-  font-size: 2rem;
-  font-weight: 400;
+    z-index: 2;
 
-  text-align: center;
-  line-height: 1.8;
+    max-width: 720px;
 
-  max-width: 700px;
+    margin: 0;
 
-  opacity: 1;
-  transition: opacity 0.8s ease;
+    padding: 0 20px;
+
+    color: rgba(255, 255, 255, 0.92);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(
+            25px,
+            5vw,
+            38px
+        );
+
+    font-weight: 400;
+
+    line-height: 1.7;
+
+    letter-spacing: 0.01em;
+
+    text-align: center;
+
+    text-wrap: balance;
+
+    will-change: opacity;
+
+    transition:
+        opacity 0.8s ease;
 }
 
+
+/* =========================================================
+   FADE STATES
+========================================================= */
+
 .fade-in {
-  opacity: 1;
-  transition: opacity 0.8s ease;
+    opacity: 1;
+
+    transition:
+        opacity 0.8s ease;
 }
 
 .fade-out {
-  opacity: 0;
-  transition: opacity 0.8s ease;
+    opacity: 0;
+
+    transition:
+        opacity 0.6s ease;
 }
+
+
+/* =========================================================
+   SUBTLE TEXT GLOW
+========================================================= */
+
+.intro-text::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -30px;
+
+    width: 90px;
+    height: 1px;
+
+    transform: translateX(-50%);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.25),
+            transparent
+        );
+
+    opacity: 0.45;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 768px) {
-  .intro-page {
-    padding: 32px;
-  }
 
-  .intro-text {
-    font-size: 1.65rem;
-    line-height: 1.9;
-  }
+    .intro-page {
+        min-height: 100svh;
+
+        padding:
+            32px
+            24px;
+    }
+
+    .intro-text {
+        max-width: 600px;
+
+        font-size:
+            clamp(
+                22px,
+                6vw,
+                30px
+            );
+
+        line-height: 1.8;
+
+        padding:
+            0 12px;
+    }
 }
 
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
 @media (max-width: 480px) {
-  .intro-text {
-    font-size: 1.35rem;
-  }
+
+    .intro-page {
+        padding:
+            28px
+            20px;
+    }
+
+    .intro-text {
+        font-size:
+            clamp(
+                20px,
+                6.5vw,
+                27px
+            );
+
+        line-height: 1.85;
+
+        letter-spacing: 0;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .intro-text {
+        font-size: 19px;
+
+        line-height: 1.8;
+    }
 }

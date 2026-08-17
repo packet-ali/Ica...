@@ -633,4 +633,23 @@
         width: 15px;
         height: 15px;
     }
+
+    .memory-heart {
+    transition:
+        color 0.5s ease,
+        transform 0.5s ease,
+        filter 0.5s ease;
+    }
+
+    .memory-heart-collected {
+        color: #c56d78;
+
+        filter:
+            drop-shadow(
+                0 0 7px
+                rgba(197, 109, 120, 0.32)
+            );
+
+        transform: scale(1.05);
+    }
 }

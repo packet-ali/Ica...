@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
+import { useMemory } from "../contexts/MemoryContext";
+
 import "../styles/main-menu.css";
 
 
@@ -16,6 +18,7 @@ const menuItems = [
     path: "/letter",
     icon: "letter",
   },
+
   {
     id: "timeline",
     title: "Timeline",
@@ -23,6 +26,7 @@ const menuItems = [
     path: "/timeline",
     icon: "timeline",
   },
+
   {
     id: "music",
     title: "Music",
@@ -30,6 +34,7 @@ const menuItems = [
     path: "/music",
     icon: "music",
   },
+
   {
     id: "gifts",
     title: "Gifts",
@@ -42,18 +47,19 @@ const menuItems = [
 
 /* =========================================================
    SVG ICONS
-   Tidak menggunakan emoji.
 ========================================================= */
 
 function MenuIcon({ type }) {
 
   if (type === "letter") {
+
     return (
       <svg
         viewBox="0 0 80 80"
         className="menu-item-icon"
         aria-hidden="true"
       >
+
         <rect
           x="19"
           y="23"
@@ -89,18 +95,21 @@ function MenuIcon({ type }) {
           strokeWidth="1"
           opacity="0.5"
         />
+
       </svg>
     );
   }
 
 
   if (type === "timeline") {
+
     return (
       <svg
         viewBox="0 0 80 80"
         className="menu-item-icon"
         aria-hidden="true"
       >
+
         <ellipse
           cx="40"
           cy="40"
@@ -149,18 +158,21 @@ function MenuIcon({ type }) {
           strokeWidth="1"
           opacity="0.5"
         />
+
       </svg>
     );
   }
 
 
   if (type === "music") {
+
     return (
       <svg
         viewBox="0 0 80 80"
         className="menu-item-icon"
         aria-hidden="true"
       >
+
         <circle
           cx="40"
           cy="40"
@@ -201,6 +213,7 @@ function MenuIcon({ type }) {
           strokeWidth="1.5"
           strokeLinecap="round"
         />
+
       </svg>
     );
   }
@@ -212,6 +225,7 @@ function MenuIcon({ type }) {
       className="menu-item-icon"
       aria-hidden="true"
     >
+
       <rect
         x="21"
         y="29"
@@ -250,6 +264,7 @@ function MenuIcon({ type }) {
         stroke="currentColor"
         strokeWidth="1.2"
       />
+
     </svg>
   );
 }
@@ -259,42 +274,74 @@ function MenuIcon({ type }) {
    MEMORY INDICATOR
 ========================================================= */
 
-function MemoryIndicator() {
+function MemoryIndicator({
+  memories,
+  memoryCount,
+  totalMemories,
+}) {
+
+  const memoryKeys = [
+    "letter",
+    "timeline",
+    "music",
+    "gifts",
+  ];
+
 
   return (
     <div className="memory-indicator">
 
       <div className="memory-hearts">
 
-        {[0, 1, 2, 3].map((heart) => (
+        {memoryKeys.map((key) => {
 
-          <svg
-            key={heart}
-            viewBox="0 0 24 24"
-            className="memory-heart"
-            aria-hidden="true"
-          >
-            <path
-              d="M12 20.5
-                 C10.5 19.1 4 14.3 4 9.2
-                 C4 6.3 5.9 4.5 8.4 4.5
-                 C10.1 4.5 11.3 5.4 12 6.7
-                 C12.7 5.4 13.9 4.5 15.6 4.5
-                 C18.1 4.5 20 6.3 20 9.2
-                 C20 14.3 13.5 19.1 12 20.5 Z"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.3"
-            />
-          </svg>
+          const collected =
+            memories[key];
 
-        ))}
+
+          return (
+            <svg
+              key={key}
+              viewBox="0 0 24 24"
+              className={
+                `memory-heart ${
+                  collected
+                    ? "memory-heart-collected"
+                    : ""
+                }`
+              }
+              aria-hidden="true"
+            >
+
+              <path
+                d="
+                  M12 20.5
+                  C10.5 19.1 4 14.3 4 9.2
+                  C4 6.3 5.9 4.5 8.4 4.5
+                  C10.1 4.5 11.3 5.4 12 6.7
+                  C12.7 5.4 13.9 4.5 15.6 4.5
+                  C18.1 4.5 20 6.3 20 9.2
+                  C20 14.3 13.5 19.1 12 20.5 Z
+                "
+                fill={
+                  collected
+                    ? "currentColor"
+                    : "none"
+                }
+                stroke="currentColor"
+                strokeWidth="1.3"
+              />
+
+            </svg>
+          );
+
+        })}
 
       </div>
 
 
       <span className="memory-label">
-        Memories: 0/4
+        Memories: {memoryCount}/{totalMemories}
       </span>
 
     </div>
@@ -308,21 +355,27 @@ function MemoryIndicator() {
 
 export default function MainMenu() {
 
-  const navigate = useNavigate();
+  const {
+    memories,
+    memoryCount,
+    totalMemories,
+  } = useMemory();
+
+
+  const navigate =
+    useNavigate();
 
 
   function handleMenuClick(path) {
+
     navigate(path);
+
   }
 
 
   return (
     <main className="main-menu-page">
 
-
-      {/* =================================================
-          BACKGROUND ATMOSPHERE
-      ================================================= */}
 
       <div
         className="main-menu-glow main-menu-glow-one"
@@ -334,10 +387,6 @@ export default function MainMenu() {
         aria-hidden="true"
       />
 
-
-      {/* =================================================
-          BACKGROUND PARTICLES
-      ================================================= */}
 
       <div
         className="main-menu-stars"
@@ -353,10 +402,6 @@ export default function MainMenu() {
 
       </div>
 
-
-      {/* =================================================
-          LARGE ORBIT
-      ================================================= */}
 
       <svg
         className="main-menu-orbit"
@@ -375,33 +420,25 @@ export default function MainMenu() {
       </svg>
 
 
-      {/* =================================================
-          CONTENT
-      ================================================= */}
-
       <section className="main-menu-content">
 
-
-        {/* =================================================
-            HEADER
-        ================================================= */}
 
         <motion.div
           className="main-menu-header"
 
           initial={{
             opacity: 0,
-            y: -20
+            y: -20,
           }}
 
           animate={{
             opacity: 1,
-            y: 0
+            y: 0,
           }}
 
           transition={{
             duration: 1,
-            ease: "easeOut"
+            ease: "easeOut",
           }}
         >
 
@@ -420,92 +457,96 @@ export default function MainMenu() {
         </motion.div>
 
 
-        {/* =================================================
-            MENU GRID
-        ================================================= */}
-
         <div className="main-menu-grid">
 
-          {menuItems.map((item, index) => (
+          {menuItems.map(
+            (item, index) => (
 
-            <motion.button
-              key={item.id}
-              className="main-menu-item"
-              onClick={() =>
-                handleMenuClick(item.path)
-              }
+              <motion.button
+                key={item.id}
 
-              initial={{
-                opacity: 0,
-                y: 20,
-                scale: 0.94
-              }}
+                className="main-menu-item"
 
-              animate={{
-                opacity: 1,
-                y: 0,
-                scale: 1
-              }}
+                onClick={() =>
+                  handleMenuClick(
+                    item.path
+                  )
+                }
 
-              transition={{
-                duration: 0.7,
-                delay: 0.45 + index * 0.15,
-                ease: "easeOut"
-              }}
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                  scale: 0.94,
+                }}
 
-              whileHover={{
-                scale: 1.035
-              }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }}
 
-              whileTap={{
-                scale: 0.97
-              }}
-            >
+                transition={{
+                  duration: 0.7,
+                  delay:
+                    0.45 +
+                    index * 0.15,
+                  ease: "easeOut",
+                }}
 
-              <div className="main-menu-item-orbit">
+                whileHover={{
+                  scale: 1.035,
+                }}
 
-                <MenuIcon
-                  type={item.icon}
-                />
+                whileTap={{
+                  scale: 0.97,
+                }}
+              >
 
-              </div>
+                <div className="main-menu-item-orbit">
 
-              <span className="main-menu-item-title">
-                {item.title}
-              </span>
+                  <MenuIcon
+                    type={
+                      item.icon
+                    }
+                  />
 
-              <span className="main-menu-item-subtitle">
-                {item.subtitle}
-              </span>
+                </div>
 
-            </motion.button>
 
-          ))}
+                <span className="main-menu-item-title">
+                  {item.title}
+                </span>
+
+
+                <span className="main-menu-item-subtitle">
+                  {item.subtitle}
+                </span>
+
+              </motion.button>
+
+            )
+          )}
 
         </div>
 
-
-        {/* =================================================
-            CENTER ORNAMENT
-        ================================================= */}
 
         <motion.div
           className="main-menu-center-ornament"
 
           initial={{
             opacity: 0,
-            scale: 0
+            scale: 0,
           }}
 
           animate={{
             opacity: 1,
-            scale: 1
+            scale: 1,
           }}
 
           transition={{
             duration: 1,
             delay: 0.95,
-            ease: "easeOut"
+            ease: "easeOut",
           }}
         >
 
@@ -518,28 +559,28 @@ export default function MainMenu() {
         </motion.div>
 
 
-        {/* =================================================
-            MEMORY COUNTER
-        ================================================= */}
-
         <motion.div
           initial={{
             opacity: 0,
-            y: 15
+            y: 15,
           }}
 
           animate={{
             opacity: 1,
-            y: 0
+            y: 0,
           }}
 
           transition={{
             duration: 0.8,
-            delay: 1.15
+            delay: 1.15,
           }}
         >
 
-          <MemoryIndicator />
+          <MemoryIndicator
+            memories={memories}
+            memoryCount={memoryCount}
+            totalMemories={totalMemories}
+          />
 
         </motion.div>
 

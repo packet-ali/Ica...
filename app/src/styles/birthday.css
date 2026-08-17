@@ -610,4 +610,92 @@
     .birthday-letter {
         font-size: 13px;
     }
+
+    /* =========================================================
+   THERE'S STILL MORE
+========================================================= */
+
+    .birthday-more-message {
+        margin: 24px 0 0;
+
+        font-family: "Playfair Display", serif;
+
+        font-size: 17px;
+
+        font-style: italic;
+
+        color: #8f686e;
+
+        letter-spacing: 0.01em;
+    }
+
+
+    /* =========================================================
+       CONTINUE BUTTON
+    ========================================================= */
+
+    .birthday-continue-button {
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        margin-top: 18px;
+
+        padding: 11px 18px;
+
+        border: 1px solid rgba(166, 120, 127, 0.28);
+
+        border-radius: 999px;
+
+        background:
+            rgba(255, 255, 255, 0.48);
+
+         color: #8f626a;
+
+        font-family: "Poppins", sans-serif;
+
+        font-size: 10px;
+
+        letter-spacing: 0.08em;
+
+        box-shadow:
+            0 8px 24px rgba(120, 75, 80, 0.06);
+
+        backdrop-filter: blur(10px);
+
+        cursor: pointer;
+
+        transition:
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .birthday-continue-button:hover {
+        border-color:
+            rgba(166, 120, 127, 0.48);
+
+        box-shadow:
+            0 10px 28px rgba(120, 75, 80, 0.10);
+    }
+
+
+    .birthday-continue-arrow {
+        display: inline-block;
+
+        font-size: 14px;
+
+        line-height: 1;
+
+        transition:
+            transform 0.3s ease;
+    }
+
+    .birthday-continue-button:hover
+    .birthday-continue-arrow {
+        transform: translateX(4px);
+    }
 }
