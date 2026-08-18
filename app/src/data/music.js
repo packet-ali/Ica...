@@ -132,7 +132,7 @@ export const musicData = [
       "/Images/music/Screenshot_20260818-195003.png",
 
     audio:
-      "/audio/music/song-4.mp3",
+      "/audio/music/Sal Priadi_LSPD,MBBK.mp3",
 
     lyrics: [
       "Kita jangan jadi tua dan membosankan",
