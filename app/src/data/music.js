@@ -124,15 +124,15 @@ export const musicData = [
   {
     id: 4,
 
-    title: "Lewat Sudah Pukul Dua, Makin Banyak Bicara Kita",
+    title:"Lewat Sudah Pukul Dua,Makin Banyak Bicara Kita",
 
     artist: "Sal Priadi",
 
     cover:
-      "/Images/music/Screenshot_20260818-195003.png",
+      "/images/music/Screenshot_20260818-195003.png",
 
     audio:
-      "/audio/music/Sal Priadi_LSPD,MBBK.mp3",
+      "/audio/Sal Priadi_LSPD,MBBK.mp3",
 
     lyrics: [
       "Kita jangan jadi tua dan membosankan",
