@@ -124,22 +124,24 @@ export const musicData = [
   {
     id: 4,
 
-    title: "Song Four",
+    title: "Lewat Sudah Pukul Dua, Makin Banyak Bicara Kita",
 
-    artist: "Artist Name",
+    artist: "Sal Priadi",
 
     cover:
-      "/images/music/song-4.jpg",
+      "/Images/music/Screenshot_20260818-195003.png",
 
     audio:
       "/audio/music/song-4.mp3",
 
     lyrics: [
-      "Masukkan potongan lirik",
-      "untuk lagu keempat di sini.",
+      "Kita jangan jadi tua dan membosankan",
+      "S'lamanya janjinya menyenangkan oh",
       "",
-      "Atur sendiri pemisahan",
-      "setiap barisnya."
+      "S'lamanya menyenangkan",
+      "S'lamanya mengesankan",
+      "S'lamanya menenangkan",
+      "S'lamanya menyenangkan"
     ],
   },
 
