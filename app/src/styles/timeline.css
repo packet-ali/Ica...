@@ -242,7 +242,6 @@
     stroke-width: 1.5;
 
     stroke-linecap: round;
-
     stroke-linejoin: round;
 }
 
@@ -386,11 +385,6 @@
 
 /* =========================================================
    MEMORY STAGE
-
-   Stage dibuat cukup tinggi untuk memberi ruang
-   bagi foto masuk dari bawah / keluar ke atas.
-
-   Tinggi stage bukan tinggi foto.
 ========================================================= */
 
 .timeline-stage {
@@ -398,16 +392,17 @@
 
     width: min(
         calc(100% - 92px),
-        500px
+        520px
     );
 
     /*
-      Ukuran stage tetap.
-      Foto di dalamnya fleksibel.
+      Stage dibuat sedikit lebih tinggi
+      agar frame portrait 3:4 tetap punya
+      ruang yang cukup.
     */
-    height: 580px;
+    height: 610px;
 
-    perspective: 1100px;
+    perspective: 1000px;
 
     overflow: hidden;
 }
@@ -481,8 +476,6 @@
 ========================================================= */
 
 .timeline-memory-title {
-    width: 100%;
-
     margin:
         7px
         0
@@ -502,58 +495,54 @@
     font-weight: 500;
 
     color: #70464d;
-
-    text-align: center;
-
-    /*
-      Membatasi judul agar tidak membuat
-      frame terlalu melebar.
-    */
-    max-width: 460px;
 }
 
 
 /* =========================================================
    PHOTO FRAME
-
-   FOTO TIDAK LAGI DIPAKSA 4:3.
-
-   Frame mengikuti rasio asli gambar.
-   Ada batas min/max agar tetap proporsional.
 ========================================================= */
+
+/*
+   FRAME UTAMA
+
+   Landscape:
+   4 : 3
+
+   Portrait:
+   3 : 4
+
+   Untuk sekarang kita gunakan
+   frame LANDSCAPE 4:3 sebagai default.
+
+   Jika nanti data timeline sudah punya
+   penanda orientation, frame ini bisa
+   otomatis berubah menjadi 3:4.
+*/
 
 .timeline-photo-frame {
     position: relative;
 
-    width: 100%;
-
     /*
-      Batas horizontal.
+      Lebar fleksibel mengikuti layar,
+      tetapi tidak terlalu kecil dan
+      tidak terlalu besar.
     */
-    max-width: 500px;
-
-    min-width: 180px;
-
-    /*
-      Tinggi fleksibel.
-      Foto portrait bisa lebih tinggi,
-      foto landscape tetap lebih pendek.
-    */
-    height: clamp(
-        220px,
-        46vh,
-        390px
+    width: clamp(
+        240px,
+        72vw,
+        500px
     );
+
+    /*
+      Default = LANDSCAPE 4:3
+    */
+    aspect-ratio: 4 / 3;
+
+    flex-shrink: 0;
 
     padding: 9px;
 
     box-sizing: border-box;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
 
     background:
         rgba(255, 255, 255, 0.72);
@@ -578,28 +567,43 @@
 
 
 /* =========================================================
-   PHOTO
+   PORTRAIT FRAME
+========================================================= */
 
-   object-fit: contain membuat gambar tetap
-   mempertahankan rasio aslinya.
+/*
+   Class ini kita siapkan dari sekarang.
+
+   Nanti memory portrait tinggal mempunyai
+   class "portrait" pada frame.
+
+   Rasio tetap FIX 3:4,
+   hanya ukuran keseluruhan yang fleksibel.
+*/
+
+.timeline-photo-frame.portrait {
+    aspect-ratio: 3 / 4;
+
+    width: clamp(
+        220px,
+        60vw,
+        390px
+    );
+}
+
+
+/* =========================================================
+   PHOTO
 ========================================================= */
 
 .timeline-photo {
     position: relative;
 
     width: 100%;
-
     height: 100%;
 
     overflow: hidden;
 
     border-radius: 4px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
 
     background:
         linear-gradient(
@@ -618,8 +622,6 @@
 
     pointer-events: none;
 
-    z-index: 2;
-
     background:
         linear-gradient(
             135deg,
@@ -633,16 +635,15 @@
     display: block;
 
     width: 100%;
-
     height: 100%;
 
     /*
-      Sangat penting:
-      gambar tidak akan terpotong.
+      Foto tidak akan dipotong.
+      Kalau rasio foto berbeda dengan
+      frame, akan ada ruang kosong
+      yang tetap terlihat elegan.
     */
     object-fit: contain;
-
-    object-position: center;
 
     background:
         #f7e9df;
@@ -673,8 +674,6 @@
     font-weight: 400;
 
     color: #66585a;
-
-    text-align: center;
 }
 
 
@@ -692,7 +691,6 @@
     justify-content: center;
 
     width: 18px;
-
     height: 18px;
 
     margin-top: 17px;
@@ -707,7 +705,6 @@
     top: 50%;
 
     width: 42px;
-
     height: 1px;
 
     background:
@@ -729,7 +726,6 @@
 
 .timeline-memory-dot span {
     width: 5px;
-
     height: 5px;
 
     border-radius: 50%;
@@ -760,7 +756,6 @@
     justify-content: center;
 
     width: 38px;
-
     height: 38px;
 
     margin: 0 9px;
@@ -809,7 +804,6 @@
 
 .timeline-navigation svg {
     width: 17px;
-
     height: 17px;
 
     fill: none;
@@ -848,7 +842,6 @@
     justify-content: center;
 
     width: 16px;
-
     height: 16px;
 
     padding: 0;
@@ -860,7 +853,6 @@
     display: block;
 
     width: 4px;
-
     height: 4px;
 
     border-radius: 50%;
@@ -878,7 +870,6 @@
 
 .timeline-indicator.active span {
     width: 6px;
-
     height: 6px;
 
     background: #c56d78;
@@ -977,7 +968,6 @@
 
 .timeline-bottom-ornament {
     width: 180px;
-
     height: 45px;
 
     margin-top: 17px;
@@ -1021,7 +1011,6 @@
 
     .timeline-back-button {
         top: 17px;
-
         left: 17px;
     }
 
@@ -1052,17 +1041,12 @@
                 100% - 72px
             );
 
-        /*
-          Stage sedikit lebih pendek
-          di mobile.
-        */
-        height: 500px;
+        height: 520px;
     }
 
 
     .timeline-navigation {
         width: 34px;
-
         height: 34px;
 
         margin: 0 5px;
@@ -1071,7 +1055,6 @@
 
     .timeline-navigation svg {
         width: 15px;
-
         height: 15px;
     }
 
@@ -1088,42 +1071,35 @@
     }
 
 
-    /* =============================================
-       PHOTO MOBILE
-    ============================================= */
+    /* =========================
+       LANDSCAPE FRAME
+    ========================= */
 
     .timeline-photo-frame {
-        /*
-          Lebar tetap fleksibel.
-        */
-        width: 100%;
-
-        min-width: 0;
-
-        max-width: 100%;
-
-        /*
-          Batas tinggi mobile.
-        */
-        height: clamp(
-            200px,
-            43vh,
-            330px
+        width: clamp(
+            220px,
+            76vw,
+            420px
         );
+
+        aspect-ratio: 4 / 3;
 
         padding: 7px;
     }
 
 
-    .timeline-photo {
-        width: 100%;
+    /* =========================
+       PORTRAIT FRAME
+    ========================= */
 
-        height: 100%;
-    }
+    .timeline-photo-frame.portrait {
+        width: clamp(
+            200px,
+            62vw,
+            330px
+        );
 
-
-    .timeline-photo img {
-        object-fit: contain;
+        aspect-ratio: 3 / 4;
     }
 
 
@@ -1172,7 +1148,6 @@
 
     .timeline-page {
         padding-left: 8px;
-
         padding-right: 8px;
     }
 
@@ -1183,13 +1158,12 @@
                 100% - 62px
             );
 
-        height: 450px;
+        height: 475px;
     }
 
 
     .timeline-navigation {
         width: 31px;
-
         height: 31px;
 
         margin: 0 4px;
@@ -1211,9 +1185,18 @@
 
 
     .timeline-photo-frame {
-        height: 250px;
+        width: 210px;
+
+        aspect-ratio: 4 / 3;
 
         padding: 6px;
+    }
+
+
+    .timeline-photo-frame.portrait {
+        width: 185px;
+
+        aspect-ratio: 3 / 4;
     }
 
 
@@ -1241,4 +1224,5 @@
     .timeline-stars span {
         animation: none;
     }
+
 }
